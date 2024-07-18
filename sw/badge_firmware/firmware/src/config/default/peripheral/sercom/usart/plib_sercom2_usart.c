@@ -442,8 +442,6 @@ void static __attribute__((used)) SERCOM2_USART_ISR_RX_Handler( void )
 
 void __attribute__((used)) SERCOM2_USART_InterruptHandler(void) {
 
-    
-    uint8_t temp;
     bool testCondition;
     DEBUG1_TOGGLE();
     if (SERCOM2_REGS->USART_INT.SERCOM_INTENSET != 0U) {
