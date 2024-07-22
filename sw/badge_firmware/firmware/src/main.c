@@ -75,7 +75,7 @@ void UI_CLI_Backup(void) {
     char input[256];
     uint8_t plain[16];
     uint8_t cipher[16]; //Cipher text returned here (bytes)
-    static uint8_t buffer[161]; //needs to be static or global...??  supports lengths up to 80 bytes
+    uint8_t buffer[161]; //needs to be static or global...??  supports lengths up to 80 bytes
     uint8_t u8_paddingValue;
     uint8_t u8_index = 0;
     uint8_t u8_byteCount;
@@ -105,7 +105,7 @@ void UI_CLI_Backup(void) {
 
     u8_byteCount = u8_index; //Copy over total byte count
     u8_index = 0; //Reset index
-    
+
     sprintf((char *)buffer, "Cipher: ");
     
     //Start encrypting data and return cipher text
@@ -119,13 +119,11 @@ void UI_CLI_Backup(void) {
         u8_byteCount -= 16;
         u8_index += 16;
     }
-
     //Respond
     MULTI_COMM_Print((char *)buffer, true);
     
     ir_packet.valid_packet = false; //Clear invalidate message
     return;
-	
 }
 
 void UI_CLI_Checksum(void) {
@@ -158,7 +156,7 @@ void UI_CLI_Password(void) {
     char buffer[50];
     ATCA_STATUS status = ATCA_SUCCESS;
     uint32_t counterValue = 0;
-    
+
     status = atcab_counter_read(0, &counterValue);
     CHECK_STATUS(status);
 
@@ -175,6 +173,8 @@ void UI_CLI_Password(void) {
     // Prompts the user to enter a password.
     MULTI_COMM_Print("Enter password: ", true);
     //Step Limit 2
+    //sprintf(buffer, "Enter password (Attempts remaining: %d): ", attemptsLeft);
+    //MULTI_COMM_Print(buffer, true);
 
     uint8_t u8_index = 0; // Index for accessing buffer positions.
     char input_char = 0; // Variable to hold each character read from the USART.
@@ -203,23 +203,24 @@ void UI_CLI_Password(void) {
         MULTI_COMM_Print("Password Accepted!\n", true);
         rx.HideAdminMode = false;
         //Step Limit 3
-//Reset limit
-status = atcab_write_bytes_zone(ATCA_ZONE_DATA, 5, 0, (uint8_t *)&counterValue, 4);
-CHECK_STATUS(status);
-        
+        //Reset limit
+        status = atcab_write_bytes_zone(ATCA_ZONE_DATA, 5, 0, (uint8_t *)&counterValue, 4);
+        CHECK_STATUS(status);
+
     } else {
         // If the password is incorrect, deny access.
         MULTI_COMM_Print("Invalid Password: ", true);
         //Step Limit 4
+        status = atcab_counter_increment(0, &counterValue);
+        if (status != ATCA_SUCCESS) printf("Error 42\n");
     }
-
 
     return;
 }
 
 void UI_IrPasswordAttack() {
 
-//Step Password IR Attack 1
+	//Step Password IR Attack 1
     switch (passwordAttackState) {
     case 0:
         //waiting to start
@@ -260,7 +261,6 @@ void UI_IrPasswordAttack() {
         strcpy((char *)ir_packet.buffer, "waiting...");
     }
     
-    
     return;
     
 }
@@ -292,6 +292,7 @@ int main(void) {
             }
 
             //Step Password 3.1
+            printf("1 - Enter Password\n");
             
             printf("2 - Reset Limit\n");
             printf("5 - IR Power\n");
@@ -300,6 +301,7 @@ int main(void) {
 
             if (!rx.HideAdminMode) {
                 //Step CRC 1
+                printf("c - Memory Check\r\n");
                 //Step AES 4.1
                 printf("b - Backup Admin Password\n");  //Adding menu item for Backup Admin Password
                 printf("x - Exit Admin\n");
@@ -332,6 +334,7 @@ int main(void) {
                     break;
                 case '1':
                     //Step Password 3.2
+                    UI_CLI_Password();
                     break;
                 case '2':
                     UI_CLI_ResetLimit();
@@ -346,7 +349,7 @@ int main(void) {
                 	}
                     break;
                 case 'b':
-                    if (!rx.HideAdminMode) {
+                                                         if (!rx.HideAdminMode) {
                         //Step 4.2
                         UI_CLI_Backup(); //Call backup admin password item menu
                     }
@@ -424,4 +427,3 @@ void MAIN_Init(void) {
 /*******************************************************************************
  End of File
  */
-
