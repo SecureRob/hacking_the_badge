@@ -73,6 +73,8 @@ def wait_for_prompt(expected_prompt="Enter address", timeout=1.0):
         elapsed_time = time.time() - start_time
         if elapsed_time > timeout:
             print(f"Timeout exceeded waiting for prompt '{expected_prompt}'")
+            print("******Make sure Badge is in Admin mode**********")
+            sys.exit(1)
             break
 
 def send_full_command(address):
