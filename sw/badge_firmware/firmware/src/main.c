@@ -171,10 +171,10 @@ void UI_CLI_Password(void) {
     
     // Step Password 3.3
     // Prompts the user to enter a password.
-    MULTI_COMM_Print("Enter password: ", true);
+    //MULTI_COMM_Print("Enter password: ", true);
     //Step Limit 2
-    //sprintf(buffer, "Enter password (Attempts remaining: %d): ", attemptsLeft);
-    //MULTI_COMM_Print(buffer, true);
+    sprintf(buffer, "Enter password (Attempts remaining: %d): ", attemptsLeft);
+    MULTI_COMM_Print(buffer, true);
 
     uint8_t u8_index = 0; // Index for accessing buffer positions.
     char input_char = 0; // Variable to hold each character read from the USART.
@@ -209,7 +209,7 @@ void UI_CLI_Password(void) {
 
     } else {
         // If the password is incorrect, deny access.
-        MULTI_COMM_Print("Invalid Password: ", true);
+        MULTI_COMM_Print("Invalid Password!\n", true);
         //Step Limit 4
         status = atcab_counter_increment(0, &counterValue);
         if (status != ATCA_SUCCESS) printf("Error 42\n");
