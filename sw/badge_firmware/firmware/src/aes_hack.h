@@ -35,10 +35,7 @@ typedef enum {
     FINISHED
 } aes_hack_state_t;
 
-
-
-
-
+extern volatile bool b_aes_Hack_request;
 
 #endif /* _AES_HACK_H */
 

@@ -28,6 +28,7 @@ void UI_IrMenuSendMessageExit(char * message);
 void UI_IrMenuSendMessage();
 void UI_PasswordAttackStart();
 void UI_PasswordAttackMenu();
+void UI_IrPasswordAttack();
 
 #endif /* _UI_H */
 

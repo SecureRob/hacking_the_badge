@@ -28,12 +28,12 @@
 // *****************************************************************************
 
 #include "app.h"
-
+#include "ui.h"
+#include "crc_attack.h"
+#include "aes_hack.h"
+#include "ir.h"
 #include "gfx/legato/generated/le_gen_assets.h"
 #include "definitions.h"
-
-extern volatile bool b_aes_Hack_request;
-void AES_HACK(void);
 
 // *****************************************************************************
 // *****************************************************************************
