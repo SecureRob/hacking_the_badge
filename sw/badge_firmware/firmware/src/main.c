@@ -179,14 +179,13 @@ int main(void) {
                 case 'c':
                 	if(!rx.HideAdminMode) {
                         //Step CRC 1.2
-                        UI_CLI_Checksum();
                 	}
                     break;
-                case 'b':
-                                                         if (!rx.HideAdminMode) {
-                        //Step 4.2
-                    }
-                    break;
+				case 'b':
+					if (!rx.HideAdminMode) {
+						//Step 4.2
+					}
+					break;
                 case 'x':
                     if (!rx.HideAdminMode) {
                         rx.HideAdminMode = true;
