@@ -32,8 +32,8 @@
 #include "gfx/legato/generated/le_gen_assets.h"
 #include "definitions.h"
 
-#define APP_FIXED_STR_SIZE 3
-
+extern volatile bool b_aes_Hack_request;
+void AES_HACK(void);
 
 // *****************************************************************************
 // *****************************************************************************
@@ -54,7 +54,7 @@
     This structure should be initialized by the APP_Initialize function.
 
     Application strings and buffers are be defined outside this structure.
-*/
+ */
 
 APP_DATA appData;
 
@@ -65,7 +65,7 @@ APP_DATA appData;
 // *****************************************************************************
 
 /* TODO:  Add any necessary callback functions.
-*/
+ */
 
 // *****************************************************************************
 // *****************************************************************************
@@ -75,7 +75,7 @@ APP_DATA appData;
 
 
 /* TODO:  Add any necessary local functions.
-*/
+ */
 
 // *****************************************************************************
 // *****************************************************************************
@@ -91,8 +91,7 @@ APP_DATA appData;
     See prototype in app.h.
  */
 
-void APP_Initialize ( void )
-{
+void APP_Initialize(void) {
     /* Place the App state machine in its initial state. */
     appData.state = APP_STATE_INIT;
 
@@ -103,7 +102,6 @@ void APP_Initialize ( void )
      */
 }
 
-
 /******************************************************************************
   Function:
     void APP_Tasks ( void )
@@ -112,42 +110,18 @@ void APP_Initialize ( void )
     See prototype in app.h.
  */
 
-void APP_Tasks ( void )
-{
+void APP_Tasks(void) {
 
-    /* Check the application's current state. */
-    switch ( appData.state )
-    {
-        /* Application's initial state. */
-        case APP_STATE_INIT:
-        {
-            bool appInitialized = true;
+    IR_CheckTimeOut();
 
-
-            if (appInitialized)
-            {
-
-                appData.state = APP_STATE_SERVICE_TASKS;
-            }
-            break;
-        }
-
-        case APP_STATE_SERVICE_TASKS:
-        {
-
-            break;
-        }
-
-        /* TODO: implement your application state machine.*/
-
-
-        /* The default state should never be executed. */
-        default:
-        {
-            /* TODO: Handle error in application's state machine. */
-            break;
-        }
+    if (b_aes_Hack_request) {
+        AES_HACK();
+        b_aes_Hack_request = false;
     }
+
+    UI_IrPasswordAttack();
+    CRC_ATTACK_Run();
+
 }
 
 

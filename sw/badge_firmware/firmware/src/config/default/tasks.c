@@ -54,12 +54,6 @@
 #include "definitions.h"
 #include "sys_tasks.h"
 
-extern volatile bool b_aes_Hack_request;
-void AES_HACK(void);
-
-
-
-
 // *****************************************************************************
 // *****************************************************************************
 // Section: System "Tasks" Routine
@@ -73,31 +67,19 @@ void AES_HACK(void);
   Remarks:
     See prototype in system/common/sys_module.h.
 */
-void SYS_Tasks ( void )
-{
+void SYS_Tasks ( void ) {
     /* Maintain system services */
-    
+
 
     /* Maintain Device Drivers */
-        DRV_ST7735_Update();
-
-
-
+    DRV_ST7735_Update();
 
     /* Maintain Middleware & Other Libraries */
-    
+
     Legato_Tasks();
-    
-    if(b_aes_Hack_request)
-    {
-        AES_HACK();
-        b_aes_Hack_request = false;
-    }
-
-
 
     /* Maintain the application's state machine. */
-        /* Call Application task APP. */
+    /* Call Application task APP. */
     APP_Tasks();
 
 
@@ -108,4 +90,3 @@ void SYS_Tasks ( void )
 /*******************************************************************************
  End of File
  */
-

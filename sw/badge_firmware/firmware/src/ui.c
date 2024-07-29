@@ -180,6 +180,7 @@ void UI_PasswordAttackMenu() {
 
 	static char * temp = "Overflow Attack:";
 
+    memset(ir_packet.buffer, 0x00, UART_RX_BUFFER_SIZE);
 	LCD_MENU_DisplayTextBuffer(temp, 0);
     LCD_MENU_DisplayTextBuffer((char *)ir_packet.buffer, 1);
     LCD_MENU_DisplayTextBuffer(NULL, 2);

@@ -85,7 +85,7 @@ void AES_HACK() {
     }
    
     SYSTICK_DelayMs(50);
-    if(!IR_SendMessage("<<<<<O<V<E<R<<F<L<O<W<<H<A<C<K>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<11", 1, NULL)) //Cause Buffer Overflow to ensure admin mode
+    if(!IR_SendMessage("012345678901234567890123456789012345678901234567890123456789012", 1, NULL)) //Cause Buffer Overflow to ensure admin mode
     {
         strcpy(hackedCharacters, "Communication   Error           Press Back");
         LCD_MENU_BufferToDisplayText(hackedCharacters, strlen(hackedCharacters), MENU_MODE_RESULTS);

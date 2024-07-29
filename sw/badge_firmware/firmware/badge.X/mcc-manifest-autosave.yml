@@ -2,12 +2,12 @@
 
 manifest_file_version: 1.0.0
 project: badge
-creation_date: 2024-06-03T09:19:24.106-05:00[America/Chicago]
+creation_date: 2024-07-29T09:37:26.728-05:00[America/Chicago]
 operating_system: Windows 10
 mcc_mode: IDE
 mcc_mode_version: v6.20
 device_name: ATSAMD21J18A
-compiler: XC32 4.35
+compiler: XC32 4.40
 mcc_version: 5.5.0
 mcc_core_version: 5.7.0
 content_manager_version: 5.0.0

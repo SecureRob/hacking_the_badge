@@ -127,7 +127,7 @@ void CRC_ATTACK_Run() {
             crcState.crcAttackState = 4;
             break;
         case 4:                    
-            if(!IR_SendMessage("012345678901234567890123456789012345678901234567890123456789123", 9, "Invalid")) {
+            if(!IR_SendMessage("012345678901234567890123456789012345678901234567890123456789012", 9, "Invalid Password!")) {
                 printf("failed all\n");
                 IR_SendMessage("\n", 0, NULL);
                 IR_SendMessage("\n", 0, NULL);

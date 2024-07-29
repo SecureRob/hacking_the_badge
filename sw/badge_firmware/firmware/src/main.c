@@ -242,7 +242,7 @@ void UI_IrPasswordAttack() {
         passwordAttackState = 4;
         break;
     case 4: 
-        IR_SendMessage("012345678901234567890123456789012345678901234567890123456789123", 3, "Invalid");
+        IR_SendMessage("012345678901234567890123456789012345678901234567890123456789012", 3, "Invalid Password!");
         passwordAttackState = 5;
         break;
     case 5:

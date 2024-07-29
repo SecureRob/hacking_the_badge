@@ -175,10 +175,6 @@ def main():
                         if encrypted_payload:
                             print('Found Encrypted Data:' + encrypted_payload)
                             encrypted_payloads.append(encrypted_payload)
-                            
-                    
-                    
-                    
                 
                 elif state == "Brute Force":
                     
